@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Pass either 'onboard' or 'offload'"
+    exit 1
+fi
+
+
+cd /home/hiwonder/ros_ws/src/hiwonder_example/scripts/yolov5_detect/
+
+if [ "$1" = "onboard" ]; then
+    echo "Launching onboard..."
+    rm yolov5_trt.py
+    ln -s yolov5_trt_onboard.py yolov5_trt.py
+elif [ "$1" = "offload" ]; then
+    echo "Launching offload..."
+    rm yolov5_trt.py
+    ln -s yolov5_trt_offload.py yolov5_trt.py
+fi
+
+roslaunch hiwonder_example self_driving.launch
